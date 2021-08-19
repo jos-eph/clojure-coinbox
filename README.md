@@ -13,7 +13,7 @@ Unit testing is available by running `lein test`.
 As an alternative, you may uncomment the last line of core.clj and run the program
 from there.
 
-###Run a Binary
+### Run a Binary
 You may find a pre-made standalone binary in the folder `target/uberjar`. If present,
 you may run it by switching to the root directory and typing
 `java -jar target/uberjar/clojure-coinbox-0.1.0-SNAPSHOT-standalone.jar`.
