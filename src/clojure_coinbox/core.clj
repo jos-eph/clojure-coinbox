@@ -1,9 +1,9 @@
 (ns clojure-coinbox.core
   (:gen-class))
 
-(println "Change maker demonstration loading" "\n"  "~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~" "\n")
+(println "Change maker demonstration loading" "\n" "~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~")
 
-(def changeConversion (array-map :quarters 25, :dimes 10, :nickels 5, :pennies 1))
+(def changeConversion (array-map "quarter" 25, "dime" 10, "nickel" 5, "cent" 1))
 
 (defn makeChange
   ([balance] (if (int? balance) (makeChange balance (first changeConversion) (rest changeConversion) changeConversion) {}))
@@ -57,15 +57,16 @@
                   ( printlnReturn "All right! A purchase! You get this many cents back: " (- inputMoney price))
                   ))))
 
+(defn pluralizeMap
+  [givenMap]
+  (clojure.string/replace (reduce-kv #(str %1 (pluralize %3 %2) ", " ) "" givenMap)
+    #"(.*, )(.*)(, )" "$1and $2."))
 
 (defn demonstrate []
   (let [ coins (printlnReturn "Here's the map generated:" (inputGenerateChangeMap))]
     (println)
     (println
-      (str    "In plain English, that's " (pluralize (get coins :quarters) "quarter")
-              ", " (pluralize (get coins :dimes) "dime")
-              ", " (pluralize (get coins :nickels) "nickel") ", and "
-              (pluralize (get coins :pennies) "cent") ". Spend it wisely!")
+      (str    "In plain English, that's " (pluralizeMap coins)  " Spend it wisely!")
 
     )
   ))
